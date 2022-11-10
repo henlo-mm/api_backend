@@ -1,65 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 # api_backend
+
+## Una vez clonado el repositorio, corremos los siguientes comandos desde la raiz del proyecto:
+
+- composer install 
+- npm install && npm run dev
+- php artisan key:generate
+
+## Editamos el archivo .env y creamos la base de datos
+## Después de tener lista la conexión
+- php artisan migrate
+- php artisan serve
+
+## Rutas de la api
+
+Para probar el funcionamiento de la API utilicé Postman.
+
+## Autenticación
+
+- Crear un nuevo registro (post): http://127.0.0.1:8000/api/signup
+- Iniciar sesión (post): http://127.0.0.1:8000/api/login
+
+## Importante
+
+Para usar las otras rutas es importante utilizar el token obtenido después de iniciar sesión (access_token), este token, de tipo Bearer, lo añadiremos  en la parte de Authorization. Si no se añade, no se podrán hacer las peticiones.
+
+## Clients
+
+- Añadir un nuevo cliente (post): http://127.0.0.1:8000/api/clients
+- Consultar todos los clientes (get): http://127.0.0.1:8000/api/clients
+- Consultar un cliente en específico (get): http://127.0.0.1:8000/api/clients/{id}
+- Editar (put): http://127.0.0.1:8000/api/clients/1?first_name=Lola
+- Eliminar (delete): http://127.0.0.1:8000/api/clients/1
+
+## Products
+
+- Añadir un nuevo producto (post): http://127.0.0.1:8000/api/products
+- Consultar todos los productos (get): http://127.0.0.1:8000/api/products
+- Consultar un producto (get): http://127.0.0.1:8000/api/products/{id}
+- Editar (put): http://127.0.0.1:8000/api/products/1?name=Test
+- Eliminar (delete): http://127.0.0.1:8000/api/products/1
+
+## Bills
+
+- Añadir una factura (post): http://127.0.0.1:8000/api/clients
+- Consultar todas las facturas (get): http://127.0.0.1:8000/api/bills
+- Consultar una factura  (get): http://127.0.0.1:8000/api/bills/{id}
+- Editar (put): http://127.0.0.1:8000/api/bills/1?company_name=Company
+- Eliminar (delete): http://127.0.0.1:8000/api/bills/1
+
+## Bills - Products
+
+- Añadir una nueva factura (post): http://127.0.0.1:8000/api/bills_products
+- Consultar todas las facturas de los productos (get): http://127.0.0.1:8000/api/bills_products
+- Consultar (get): http://127.0.0.1:8000/api/bills_products/{id}
+- Editar (put): http://127.0.0.1:8000/api/bills_products/1?bill_id=1
+- Eliminar (delete): hhttp://127.0.0.1:8000/api/bills_products/1
+
+## Archivos CSV
+
+- Crear nuevos clientes a partir de un archivo CSV (post): http://127.0.0.1:8000/api/clients_import
+
+Para subir el archivo especificamos que el campo es tipo file.
+![image](https://user-images.githubusercontent.com/95490448/200975965-08d51d17-ac13-4f05-bbe1-d26212ae3181.png)
+
+
+- Descargar un listado de los clientes y el número de facturas (post): http://127.0.0.1:8000/api/clients_export
+ A la hora de hacer la petición seleccionamos la opción Send and Download para descargarlo.
+ 
+ ![image](https://user-images.githubusercontent.com/95490448/200976036-5887e6bd-53f9-491d-bbc3-6d9ae2cb1e42.png)
