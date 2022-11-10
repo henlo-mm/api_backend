@@ -28,28 +28,37 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'company_name' => 'required|string|max:255',
-            'nit' => 'required|integer',
-            'code' => 'required|string',
-        ]);
-        
 
-        if($validator->fails()){
-            return response()->json($validator->errors());       
+        try {
+
+            $validator = Validator::make($request->all(),[
+                'company_name' => 'required|string|max:255',
+                'nit' => 'required|integer',
+                'code' => 'required|string',
+            ]);
+            
+    
+            if($validator->fails()){
+                return response()->json($validator->errors());       
+            }
+    
+            $client = Client::where('id', $request->client_id)->get()->first();
+    
+    
+            if ($client) {
+                $bill = Bill::create($request->all());
+    
+            }else {
+                return response()->json('Por favor, verifique el campo del cliente');  
+            }
+    
+            return response()->json(['Factura agregada', $bill]);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Ha ocurrido un error', $th]);
         }
-
-        $client = Client::where('id', $request->client_id)->get()->first();
-
-
-        if ($client) {
-            $bill = Bill::create($request->all());
-
-        }else {
-            return response()->json('Por favor, verifique el campo del cliente');  
-        }
-
-        return response()->json(['Factura agregada', $bill]);
+       
     }
 
     /**

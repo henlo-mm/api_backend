@@ -32,20 +32,28 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'document' => 'required|integer',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
+        try {
+            $validator = Validator::make($request->all(),[
+                'document' => 'required|integer',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+            ]);
+    
+            if($validator->fails()){
+                return response()->json($validator->errors());       
+            }
+    
+            $client = Client::create($request->all());
+    
+            return response()->json(['Cliente agregado', $client]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors());       
-        }
-
-        $client = Client::create($request->all());
-
-        return response()->json(['Cliente agregado', $client]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Ha ocurrido un error', $th]);
+           
+        } 
+       
 
     }
 

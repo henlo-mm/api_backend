@@ -29,7 +29,8 @@ class BillProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        try {
+            
         $product = Product::where('id', $request->product_id)->get()->first();
         $bill = Bill::where('id', $request->bill_id)->get()->first();
 
@@ -41,7 +42,14 @@ class BillProductController extends Controller
             return response()->json(['La factura del producto ha sido agregada', $bill_prod]);
             
         }
-       
+            
+        } catch (\Throwable $th) {
+          
+            DB::rollBack();
+            return response()->json(['Ha ocurrido un error', $th]);
+               
+        }
+
     }
 
     /**
@@ -86,7 +94,7 @@ class BillProductController extends Controller
     {
 
         $bill_prod = BillProduct::where('id', $id)->delete();
-        
+
         return response()->json(['Factura eliminada', $bill_prod]);
     }
 }

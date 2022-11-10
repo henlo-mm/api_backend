@@ -26,10 +26,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $product = Product::create($request->all());
 
-        $product = Product::create($request->all());
+            return response()->json(['Producto agregado', $product]);
+            
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Ha ocurrido un error', $th]);
+        }
 
-        return response()->json(['Producto agregado', $product]);
+        
     }
 
     /**
